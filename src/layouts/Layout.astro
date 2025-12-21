@@ -6,6 +6,8 @@ interface Props {
 
 const { title, description = "Portafolio de fotografía profesional" } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/faviconx.png" />
     
     <!-- Global Styles -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
+
   </head>
   <body>
     <!-- Navigation -->
