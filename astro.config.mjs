@@ -5,6 +5,6 @@ export default defineConfig({
     // Si vas a usar un dominio propio o el de vercel.app
     // deja el 'base' vacío o bórralo.
     base: '/',
-    output: 'static', // O 'server' si usas el adaptador
-    // adapter: vercel(), 
+    output: 'server', // O 'server' si usas el adaptador
+    adapter: vercel(),
 });
