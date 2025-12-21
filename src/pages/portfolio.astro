@@ -1,0 +1,382 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Portfolio images - Añade aquí tus nuevas fotos
+// El 'id' debe coincidir con el nombre del archivo en /public/images/portfolio/
+const images = [
+  { id: 1, title: 'Arquitectura Moderna', category: 'Arquitectura' },
+  { id: 2, title: 'Retrato Artístico', category: 'Retrato' },
+  { id: 3, title: 'Naturaleza Etérea', category: 'Naturaleza' },
+  { id: 4, title: 'Urbano Minimalista', category: 'Urbano' },
+  { id: 5, title: 'Abstracto', category: 'Arte' },
+  { id: 6, title: 'Paisaje Marino', category: 'Paisaje' },
+  // --- Añade más fotos abajo siguiendo este formato ---
+  { id: 7, title: 'Imagen 7', category: 'Categoría' },
+  { id: 8, title: 'Imagen 8', category: 'Categoría' },
+  { id: 9, title: 'Imagen 9', category: 'Categoría' },
+  { id: 10, title: 'Imagen 10', category: 'Categoría' },
+  { id: 11, title: 'Imagen 11', category: 'Categoría' },
+  { id: 12, title: 'Imagen 12', category: 'Categoría' },
+  { id: 13, title: 'Imagen 13', category: 'Categoría' },
+  { id: 14, title: 'Imagen 14', category: 'Categoría' },
+  { id: 15, title: 'Imagen 15', category: 'Categoría' },
+  { id: 16, title: 'Imagen 16', category: 'Categoría' },
+  { id: 17, title: 'Imagen 17', category: 'Categoría' },
+  { id: 18, title: 'Imagen 18', category: 'Categoría' },
+  { id: 19, title: 'Imagen 19', category: 'Categoría' },
+  { id: 20, title: 'Imagen 20', category: 'Categoría' },
+  { id: 21, title: 'Imagen 21', category: 'Categoría' },
+  { id: 22, title: 'Imagen 22', category: 'Categoría' },
+  { id: 23, title: 'Imagen 23', category: 'Categoría' },
+  { id: 24, title: 'Imagen 24', category: 'Categoría' },
+  { id: 25, title: 'Imagen 25', category: 'Categoría' },
+  { id: 26, title: 'Imagen 26', category: 'Categoría' },
+];
+
+---
+
+<Layout title="Portafolio - Galería de Fotografía" description="Explora mi colección de fotografía en blanco y negro">
+  <section class="portfolio-section">
+    <div class="container">
+      <div class="portfolio-header fade-in-up">
+        <h1>Portafolio</h1>
+      </div>
+
+      <div class="filter-controls fade-in-up">
+        <button id="resetFilter" class="reset-btn">
+          Ver todas las fotos &times;
+        </button>
+      </div>
+
+      <div class="gallery" id="galleryGrid">
+        {images.map((image, index) => (
+          <div 
+            class="gallery-item" 
+            data-category={image.category}
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            <div class="image-wrapper">
+              <img 
+                src={`/images/portfolio/${image.id}.png`} 
+                alt={image.title}
+                loading="lazy"
+              />
+              <div class="image-category-tag">{image.category}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-close" id="closeLightbox" aria-label="Close lightbox">&times;</button>
+    <img id="lightboxImage" src="" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</Layout>
+
+<style>
+  .portfolio-section {
+    padding-top: 100px;
+    padding-bottom: 2rem;
+  }
+
+  .portfolio-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  .portfolio-subtitle {
+    display: none;
+  }
+
+  .filter-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .filter-controls:has(.reset-btn.visible) {
+    margin-bottom: 1.5rem;
+    height: auto;
+    overflow: visible;
+  }
+
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+  }
+
+  .reset-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .reset-btn:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .gallery-item {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background-color: var(--bg-secondary);
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: transform var(--transition-medium);
+  }
+
+  .image-wrapper:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .image-wrapper:hover img {
+    transform: scale(1.05);
+  }
+
+  .image-category-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    opacity: 0.9;
+    transition: all var(--transition-medium);
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .image-wrapper:hover .image-category-tag {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .image-category-tag:hover {
+    background-color: var(--color-gray);
+    opacity: 1;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity var(--transition-medium);
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 3rem;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast);
+    z-index: 2001;
+  }
+
+  .lightbox-close:hover {
+    transform: rotate(90deg);
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-white);
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .portfolio-section {
+      padding-top: 80px;
+    }
+
+    .gallery {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .lightbox img {
+      max-width: 95%;
+    }
+
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Filtering functionality
+  const galleryItemsToFilter = document.querySelectorAll('.gallery-item');
+  const categoryTags = document.querySelectorAll('.image-category-tag');
+  const resetBtn = document.getElementById('resetFilter');
+
+  function applyFilter(filter: string | null) {
+    galleryItemsToFilter.forEach(item => {
+      const category = (item as HTMLElement).dataset.category;
+      const htmlItem = item as HTMLElement;
+      
+      if (!filter || filter === 'Todas' || category === filter) {
+        htmlItem.style.display = 'block';
+        setTimeout(() => {
+          htmlItem.style.opacity = '1';
+          htmlItem.style.transform = 'translateY(0)';
+        }, 10);
+      } else {
+        htmlItem.style.opacity = '0';
+        htmlItem.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          htmlItem.style.display = 'none';
+        }, 400);
+      }
+    });
+
+    // Show/hide reset button
+    if (filter && filter !== 'Todas') {
+      resetBtn?.classList.add('visible');
+    } else {
+      resetBtn?.classList.remove('visible');
+    }
+  }
+
+  categoryTags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent opening lightbox
+      const category = tag.textContent || '';
+      applyFilter(category);
+    });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    applyFilter(null);
+  });
+
+  // Lightbox functionality
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage') as HTMLImageElement;
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const closeLightbox = document.getElementById('closeLightbox');
+  const galleryItems = document.querySelectorAll('.image-wrapper');
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      const category = item.querySelector('.image-category-tag')?.textContent || '';
+      
+      if (img && lightboxImage && lightboxCaption && lightbox) {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        // In this minimalist design, we show only the category in the caption, 
+        // or title if available. Since we removed h3, we use the alt text.
+        lightboxCaption.textContent = `${img.alt} | ${category}`;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  closeLightbox?.addEventListener('click', () => {
+    lightbox?.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+
+  // Close lightbox with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
