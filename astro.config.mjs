@@ -1,13 +1,10 @@
 import { defineConfig } from 'astro/config';
-
-import vercel from '@astrojs/vercel';
+import vercel from '@astrojs/vercel/serverless'; // Solo si instalaste el adaptador
 
 export default defineConfig({
-  site: 'https://marck028.github.io',
-  base: '/Pagina-Javi/',
-
-  // <- importante para GitHub Pages
-  trailingSlash: 'always',
-
-  adapter: vercel()
+    // Si vas a usar un dominio propio o el de vercel.app
+    // deja el 'base' vacío o bórralo.
+    base: '/',
+    output: 'static', // O 'server' si usas el adaptador
+    // adapter: vercel(), 
 });
