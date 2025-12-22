@@ -69,6 +69,7 @@ La galería muestra todas tus fotos en formato grid.
    - Coloca tus imágenes en: `public/images/portfolio/`
    - Nombra las imágenes: `1.png`, `2.png`, `3.png`, `4.png`, etc.
    - Usa números consecutivos
+   - **Formatos soportados:** `.png`, `.jpg`, `.webp`
 
 2. **Actualizar la galería:**
    - Abre el archivo: `src/pages/portfolio.astro`
@@ -78,27 +79,28 @@ La galería muestra todas tus fotos en formato grid.
    ```javascript
    const images = [
      { id: 1, title: 'Título Existente', category: 'Categoría' },
-     // ...
-     { id: 7, title: 'Imagen 7', category: 'Categoría' }, // Edita estas líneas
-     { id: 8, title: 'Imagen 8', category: 'Categoría' },
+     // ...\n     { id: 7, title: 'Imagen 7', category: 'Comida', ext: 'jpg' }, // Con extensión personalizada
+     { id: 8, title: 'Imagen 8', category: 'Arquitectura' }, // Sin ext = usa .png por defecto
    ];
    ```
 
    **Cómo editar:**
-   1. **id**: Debe coincidir con el nombre de tu archivo en `public/images/portfolio/` (ej: si tu archivo es `vacaciones.jpg`, el id sería `vacaciones`).
+   1. **id**: Debe coincidir con el nombre de tu archivo en `public/images/portfolio/` (ej: si tu archivo es `7.jpg`, el id sería `7`).
    2. **title**: El nombre que quieres que aparezca cuando se abra la foto en grande.
    3. **category**: La categoría para el filtrado (ej: 'Retrato', 'Naturaleza').
+   4. **ext** (opcional): La extensión del archivo (`'png'`, `'jpg'`, o `'webp'`). Si no se especifica, usa `.png` por defecto.
 
 ---
 
 ### 💡 Truco para subir 20 fotos rápido:
-1. Nombra tus fotos del 7 al 26 (ej: `7.png`, `8.png`, etc.) y súbelas a la carpeta.
-2. Como ya dejé las filas del 7 al 26 creadas en el código, ¡aparecerán automáticamente! Solo tendrías que cambiarles el nombre del título y categoría si quieres.
+1. Nombra tus fotos del 7 al 26 (ej: `7.png`, `8.jpg`, `9.webp`, etc.) y súbelas a la carpeta.
+2. Como ya dejé las filas del 7 al 26 creadas en el código, ¡aparecerán automáticamente! Solo tendrías que cambiarles el nombre del título, categoría y extensión si es diferente a `.png`.
 
 
 **Importante:**
 - El `id` debe coincidir con el nombre del archivo (sin extensión)
-- `title` y `category` son solo para referencia interna (no se muestran en la galería)
+- Si tu imagen es `.jpg` o `.webp`, agrega `ext: 'jpg'` o `ext: 'webp'` al objeto
+- Si no especificas `ext`, se asume que es `.png`
 
 ---
 
