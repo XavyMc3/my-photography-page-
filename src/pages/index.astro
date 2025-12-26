@@ -1,12 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 // Carousel images - solo 3 para el Hero de la página de inicio
 // Asegúrate de que las fotos existan en la carpeta /public/images/portfolio/
 const carouselImages = [
-  { id: 1, title: 'Arquitectura Moderna', src: '/images/portfolio/1.png' },
-  { id: 2, title: 'Retrato Artístico', src: '/images/portfolio/2.png' },
-  { id: 3, title: 'Naturaleza Etérea', src: '/images/portfolio/3.png' },
+  {
+    id: 1,
+    title: "Street Photography",
+    subtitle: "Documentando historias efímeras en las calles de la ciudad",
+    src: "/images/portfolio/20.jpg",
+  },
+  {
+    id: 2,
+    title: "Restaurantes",
+    subtitle: "Fotografía gastronómica y de espacios culinarios",
+    src: "/images/portfolio/hero-2.jpg",
+  },
+  {
+    id: 3,
+    title: "Paisajes Urbanos",
+    subtitle: "Perspectivas únicas de nuestra arquitectura moderna",
+    src: "/images/portfolio/hero-3.jpg",
+  },
   /* 
     Para cambiar una foto del carrusel, simplemente actualiza el 'src' 
     con el nombre de tu nuevo archivo.
@@ -16,10 +31,10 @@ const carouselImages = [
 // Featured work images - 4 imágenes para la sección "Un poco de mi Trabajo"
 // Puedes especificar la extensión con 'ext' (png, jpg, webp). Si no se especifica, se usa 'png' por defecto
 const featuredWork = [
-  { id: 4, title: 'Urbano Minimalista', ext: 'png' },
-  { id: 5, title: 'Abstracto', ext: 'png' },
-  { id: 6, title: 'Paisaje Marino', ext: 'png' },
-  { id: 1, title: 'Arquitectura Moderna', ext: 'png' },
+  { id: 1, title: "Retrato Artístico", ext: "jpg" },
+  { id: 10, title: "Arquitectura Moderna", ext: "jpg" },
+  { id: 20, title: "Vida Urbana", ext: "jpg" },
+  { id: 40, title: "Gastronomía", ext: "jpg" },
 ];
 ---
 
@@ -29,28 +44,32 @@ const featuredWork = [
     <div class="carousel-container-full">
       <div class="carousel-wrapper-full">
         <div class="carousel-track" id="carouselTrack">
-          {carouselImages.map((image) => (
-            <div class="carousel-slide">
-              <img src={image.src} alt={image.title} />
-              <div class="carousel-overlay">
-                <div class="carousel-content">
-                  <h1>{image.title}</h1>
-                  <p class="carousel-subtitle">Fotografía profesional en blanco y negro</p>
+          {
+            carouselImages.map((image) => (
+              <div class="carousel-slide">
+                <img src={image.src} alt={image.title} />
+                <div class="carousel-overlay">
+                  <div class="carousel-content">
+                    <h1>{image.title}</h1>
+                    <p class="carousel-subtitle">{image.subtitle}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
-      
+
       <div class="carousel-dots" id="carouselDots">
-        {carouselImages.map((_, index) => (
-          <button 
-            class={`dot ${index === 0 ? 'active' : ''}`} 
-            data-index={index}
-            aria-label={`Go to slide ${index + 1}`}
-          ></button>
-        ))}
+        {
+          carouselImages.map((_, index) => (
+            <button
+              class={`dot ${index === 0 ? "active" : ""}`}
+              data-index={index}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))
+        }
       </div>
     </div>
   </section>
@@ -60,17 +79,24 @@ const featuredWork = [
     <div class="container">
       <h2 class="featured-work-title">Un poco de mi Trabajo</h2>
       <div class="featured-grid">
-        {featuredWork.map((image) => (
-          <div class="featured-item">
-            <div class="featured-image-wrapper" data-image-id={image.id} data-image-ext={image.ext || 'png'} data-image-title={image.title}>
-              <img 
-                src={`/images/portfolio/${image.id}.${image.ext || 'png'}`} 
-                alt={image.title}
-                loading="lazy"
-              />
+        {
+          featuredWork.map((image) => (
+            <div class="featured-item">
+              <div
+                class="featured-image-wrapper"
+                data-image-id={image.id}
+                data-image-ext={image.ext || "png"}
+                data-image-title={image.title}
+              >
+                <img
+                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+                  alt={image.title}
+                  loading="lazy"
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
       <div class="featured-cta">
         <a href="/portfolio" class="btn">Ver Portafolio Completo</a>
@@ -80,7 +106,11 @@ const featuredWork = [
 
   <!-- Lightbox for Featured Work -->
   <div id="featuredLightbox" class="lightbox">
-    <button class="lightbox-close" id="closeFeaturedLightbox" aria-label="Close lightbox">&times;</button>
+    <button
+      class="lightbox-close"
+      id="closeFeaturedLightbox"
+      aria-label="Close lightbox">&times;</button
+    >
     <img id="featuredLightboxImage" src="" alt="" />
   </div>
 
@@ -91,19 +121,21 @@ const featuredWork = [
       <div class="about-content">
         <div class="about-text-content">
           <p class="about-text">
-            La fotografía en blanco y negro revela la esencia pura de cada momento. 
-            Sin las distracciones del color, cada imagen cuenta una historia más profunda, 
-            donde la luz, la sombra y la composición se convierten en el lenguaje principal.
+            ¡Hola! Soy Javier, un fotógrafo autodidacta apasionado por capturar
+            la esencia de Bolivia, su gente y sus historias. Con 5 años de
+            trayectoria, he tenido el honor de ser reconocido por la Unión
+            Europea (2022) y exponer mi trabajo en el Hotel Kunan (2025).
           </p>
           <p class="about-text">
-            Mi enfoque minimalista busca capturar la belleza en la simplicidad, 
-            creando imágenes atemporales que trascienden las modas y permanecen relevantes 
-            a través del tiempo.
+            Mi motivación es conectar con la identidad de cada proyecto, ya sea
+            en la gastronomía, el retrato o la vida urbana. Disfruto de cada
+            nuevo desafío y me encantaría escuchar tu idea para, juntos, hacerla
+            realidad :)
           </p>
           <a href="/contact" class="btn">Trabajemos Juntos</a>
         </div>
         <div class="about-image">
-          <img src="/PerfilJavi.jpeg" alt="Perfil del fotógrafo" />
+          <img src="/PerfilJavi.png" alt="Perfil del fotógrafo" />
         </div>
       </div>
     </div>
@@ -167,7 +199,11 @@ const featuredWork = [
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -309,7 +345,9 @@ const featuredWork = [
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: transform var(--transition-slow), filter var(--transition-medium);
+    transition:
+      transform var(--transition-slow),
+      filter var(--transition-medium);
   }
 
   .featured-item:hover .featured-image-wrapper img {
@@ -487,9 +525,9 @@ const featuredWork = [
 </style>
 
 <script>
-  const track = document.getElementById('carouselTrack');
-  const dots = document.querySelectorAll('.dot');
-  
+  const track = document.getElementById("carouselTrack");
+  const dots = document.querySelectorAll(".dot");
+
   let currentIndex = 0;
   const totalSlides = 3; // Changed to 3 images
   let autoPlayInterval: number;
@@ -498,9 +536,9 @@ const featuredWork = [
     if (track) {
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
-    
+
     dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
+      dot.classList.toggle("active", index === currentIndex);
     });
   }
 
@@ -515,68 +553,80 @@ const featuredWork = [
   }
 
   function startAutoPlay() {
-    autoPlayInterval = window.setInterval(nextSlide, 5000); // Changed to 5 seconds
+    // Clear any existing interval to prevent duplicates
+    stopAutoPlay();
+    autoPlayInterval = window.setInterval(nextSlide, 6000);
   }
 
   function stopAutoPlay() {
     clearInterval(autoPlayInterval);
   }
 
+  function resetAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+
   // Dot navigation
   dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      stopAutoPlay();
+    dot.addEventListener("click", () => {
       goToSlide(index);
-      startAutoPlay();
+      resetAutoPlay();
     });
   });
 
   // Pause on hover
-  const carouselContainer = document.querySelector('.carousel-hero');
-  carouselContainer?.addEventListener('mouseenter', stopAutoPlay);
-  carouselContainer?.addEventListener('mouseleave', startAutoPlay);
+  const carouselContainer = document.querySelector(".carousel-hero");
+  carouselContainer?.addEventListener("mouseenter", stopAutoPlay);
+  carouselContainer?.addEventListener("mouseleave", startAutoPlay);
 
   // Start auto-play
   startAutoPlay();
 
   // Featured Work Lightbox functionality
-  const featuredLightbox = document.getElementById('featuredLightbox');
-  const featuredLightboxImage = document.getElementById('featuredLightboxImage') as HTMLImageElement;
-  const closeFeaturedLightbox = document.getElementById('closeFeaturedLightbox');
-  const featuredImageWrappers = document.querySelectorAll('.featured-image-wrapper');
+  const featuredLightbox = document.getElementById("featuredLightbox");
+  const featuredLightboxImage = document.getElementById(
+    "featuredLightboxImage",
+  ) as HTMLImageElement;
+  const closeFeaturedLightbox = document.getElementById(
+    "closeFeaturedLightbox",
+  );
+  const featuredImageWrappers = document.querySelectorAll(
+    ".featured-image-wrapper",
+  );
 
-  featuredImageWrappers.forEach(wrapper => {
-    wrapper.addEventListener('click', () => {
+  featuredImageWrappers.forEach((wrapper) => {
+    wrapper.addEventListener("click", () => {
       const imageId = (wrapper as HTMLElement).dataset.imageId;
-      const imageExt = (wrapper as HTMLElement).dataset.imageExt || 'png';
-      const imageTitle = (wrapper as HTMLElement).dataset.imageTitle || '';
-      
+      const imageExt = (wrapper as HTMLElement).dataset.imageExt || "png";
+      const imageTitle = (wrapper as HTMLElement).dataset.imageTitle || "";
+
       if (featuredLightboxImage && featuredLightbox) {
         featuredLightboxImage.src = `/images/portfolio/${imageId}.${imageExt}`;
         featuredLightboxImage.alt = imageTitle;
-        featuredLightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        featuredLightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
       }
     });
   });
 
-  closeFeaturedLightbox?.addEventListener('click', () => {
-    featuredLightbox?.classList.remove('active');
-    document.body.style.overflow = 'auto';
+  closeFeaturedLightbox?.addEventListener("click", () => {
+    featuredLightbox?.classList.remove("active");
+    document.body.style.overflow = "auto";
   });
 
-  featuredLightbox?.addEventListener('click', (e) => {
+  featuredLightbox?.addEventListener("click", (e) => {
     if (e.target === featuredLightbox) {
-      featuredLightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      featuredLightbox.classList.remove("active");
+      document.body.style.overflow = "auto";
     }
   });
 
   // Close lightbox with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && featuredLightbox?.classList.contains('active')) {
-      featuredLightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && featuredLightbox?.classList.contains("active")) {
+      featuredLightbox.classList.remove("active");
+      document.body.style.overflow = "auto";
     }
   });
 </script>

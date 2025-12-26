@@ -1,50 +1,89 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 // Portfolio images - Añade aquí tus nuevas fotos
 // El 'id' debe coincidir con el nombre del archivo en /public/images/portfolio/
 // Puedes especificar la extensión con 'ext' (png, jpg, webp). Si no se especifica, se usa 'png' por defecto
 const images = [
-  { id: 1, title: 'Arquitectura Moderna', category: 'Arquitectura' },
-  { id: 2, title: 'Retrato Artístico', category: 'Retrato' },
-  { id: 3, title: 'Naturaleza Etérea', category: 'Naturaleza' },
-  { id: 4, title: 'Urbano Minimalista', category: 'Urbano' },
-  { id: 5, title: 'Abstracto', category: 'Arte' },
-  { id: 6, title: 'Paisaje Marino', category: 'Paisaje' },
-  // --- Añade más fotos abajo siguiendo este formato ---
-  { id: 7, title: 'Imagen 7', category: 'Comida', ext: 'jpg' },
-  { id: 8, title: 'Imagen 8', category: 'Arquitectura' },
-  { id: 9, title: 'Imagen 9', category: 'Arquitectura' },
-  { id: 10, title: 'Imagen 10', category: 'Arquitectura' },
-  { id: 11, title: 'Imagen 11', category: 'Retrato' },
-  { id: 12, title: 'Imagen 12', category: 'Retrato' },
-  { id: 13, title: 'Imagen 13', category: 'Retrato' },
-  { id: 14, title: 'Imagen 14', category: 'Retrato' },
-  { id: 15, title: 'Imagen 15', category: 'Naturaleza' },
-  { id: 16, title: 'Imagen 16', category: 'Naturaleza' },
-  { id: 17, title: 'Imagen 17', category: 'Naturaleza' },
-  { id: 18, title: 'Imagen 18', category: 'Urbano' },
-  { id: 19, title: 'Imagen 19', category: 'Urbano' },
-  { id: 20, title: 'Imagen 20', category: 'Urbano' },
-  { id: 21, title: 'Imagen 21', category: 'Arte' },
-  { id: 22, title: 'Imagen 22', category: 'Arte' },
-  { id: 23, title: 'Imagen 23', category: 'Paisaje' },
-  { id: 24, title: 'Imagen 24', category: 'Comida' },
-  { id: 25, title: 'Imagen 25', category: 'Comida' },
-  { id: 26, title: 'Imagen 26', category: 'Comida' },
+  { id: 1, title: "Retrato 1", category: "Retrato", ext: "jpg" },
+  { id: 2, title: "Retrato 2", category: "Retrato", ext: "jpg" },
+  { id: 3, title: "Retrato 3", category: "Retrato", ext: "jpg" },
+  { id: 4, title: "Retrato 4", category: "Retrato", ext: "jpg" },
+  { id: 5, title: "Retrato 5", category: "Retrato", ext: "jpg" },
+  { id: 6, title: "Retrato 6", category: "Retrato", ext: "jpg" },
+  { id: 7, title: "Retrato 7", category: "Retrato", ext: "jpg" },
+  { id: 8, title: "Retrato 8", category: "Retrato", ext: "jpg" },
+  { id: 9, title: "Proyectos 9", category: "Proyectos", ext: "jpg" },
+  { id: 10, title: "Proyectos 10", category: "Proyectos", ext: "jpg" },
+  { id: 11, title: "Proyectos 11", category: "Proyectos", ext: "jpg" },
+  { id: 12, title: "Proyectos 12", category: "Proyectos", ext: "jpg" },
+  { id: 13, title: "Proyectos 13", category: "Proyectos", ext: "jpg" },
+  { id: 14, title: "Proyectos 14", category: "Proyectos", ext: "jpg" },
+  { id: 15, title: "Urbano 15", category: "Urbano", ext: "jpg" },
+  { id: 16, title: "Urbano 16", category: "Urbano", ext: "jpg" },
+  { id: 17, title: "Urbano 17", category: "Urbano", ext: "jpg" },
+  { id: 18, title: "Urbano 18", category: "Urbano", ext: "jpg" },
+  { id: 19, title: "Urbano 19", category: "Urbano", ext: "jpg" },
+  { id: 20, title: "Urbano 20", category: "Urbano", ext: "jpg" },
+  { id: 21, title: "Urbano 21", category: "Urbano", ext: "jpg" },
+  { id: 22, title: "Urbano 22", category: "Urbano", ext: "jpg" },
+  { id: 23, title: "Urbano 23", category: "Urbano", ext: "jpg" },
+  { id: 24, title: "Urbano 24", category: "Urbano", ext: "jpg" },
+  { id: 25, title: "Urbano 25", category: "Urbano", ext: "jpg" },
+  { id: 26, title: "Urbano 26", category: "Urbano", ext: "jpg" },
+  { id: 27, title: "Paisaje 27", category: "Paisaje", ext: "jpg" },
+  { id: 28, title: "Paisaje 28", category: "Paisaje", ext: "jpg" },
+  { id: 29, title: "Paisaje 29", category: "Paisaje", ext: "jpg" },
+  { id: 30, title: "Paisaje 30", category: "Paisaje", ext: "jpg" },
+  { id: 31, title: "Paisaje 31", category: "Paisaje", ext: "jpg" },
+  { id: 32, title: "Paisaje 32", category: "Paisaje", ext: "jpg" },
+  { id: 33, title: "Paisaje 33", category: "Paisaje", ext: "jpg" },
+  { id: 34, title: "Paisaje 34", category: "Paisaje", ext: "jpg" },
+  { id: 35, title: "Paisaje 35", category: "Paisaje", ext: "jpg" },
+  { id: 36, title: "Paisaje 36", category: "Paisaje", ext: "jpg" },
+  { id: 37, title: "Paisaje 37", category: "Paisaje", ext: "jpg" },
+  { id: 38, title: "Paisaje 38", category: "Paisaje", ext: "jpg" },
+  { id: 39, title: "Paisaje 39", category: "Paisaje", ext: "jpg" },
+  { id: 40, title: "Comida 40", category: "Comida", ext: "jpg" },
+  { id: 41, title: "Comida 41", category: "Comida", ext: "jpg" },
+  { id: 42, title: "Comida 42", category: "Comida", ext: "jpg" },
+  { id: 43, title: "Comida 43", category: "Comida", ext: "jpg" },
+  { id: 44, title: "Comida 44", category: "Comida", ext: "jpg" },
+  { id: 45, title: "Comida 45", category: "Comida", ext: "jpg" },
+  { id: 46, title: "Comida 46", category: "Comida", ext: "jpg" },
+  { id: 47, title: "Comida 47", category: "Comida", ext: "jpg" },
+  { id: 48, title: "Comida 48", category: "Comida", ext: "jpg" },
+  { id: 49, title: "Comida 49", category: "Comida", ext: "jpg" },
+  { id: 50, title: "Comida 50", category: "Comida", ext: "jpg" },
+  { id: 51, title: "Restaurantes 51", category: "Restaurantes", ext: "jpg" },
+  { id: 52, title: "Restaurantes 52", category: "Restaurantes", ext: "jpg" },
+  { id: 53, title: "Restaurantes 53", category: "Restaurantes", ext: "jpg" },
+  { id: 54, title: "Restaurantes 54", category: "Restaurantes", ext: "jpg" },
+  { id: 55, title: "Restaurantes 55", category: "Restaurantes", ext: "jpg" },
+  { id: 56, title: "Restaurantes 56", category: "Restaurantes", ext: "jpg" },
+  { id: 57, title: "Restaurantes 57", category: "Restaurantes", ext: "jpg" },
+  { id: 58, title: "Restaurantes 58", category: "Restaurantes", ext: "jpg" },
+  { id: 59, title: "Restaurantes 59", category: "Restaurantes", ext: "jpg" },
+  { id: 60, title: "Restaurantes 60", category: "Restaurantes", ext: "jpg" },
+  { id: 61, title: "Restaurantes 61", category: "Restaurantes", ext: "jpg" },
+  { id: 62, title: "Restaurantes 62", category: "Restaurantes", ext: "jpg" },
+  { id: 64, title: "Restaurantes 64", category: "Restaurantes", ext: "jpg" },
+  { id: 65, title: "Restaurantes 65", category: "Restaurantes", ext: "jpg" },
 ];
 
 // Get unique categories
-const categories = [...new Set(images.map(img => img.category))];
+const categories = [...new Set(images.map((img) => img.category))];
 
 // Get one representative image per category (the first one found)
-const categoryRepresentatives = categories.map(category => {
-  return images.find(img => img.category === category)!;
+const categoryRepresentatives = categories.map((category) => {
+  return images.find((img) => img.category === category)!;
 });
-
 ---
 
-<Layout title="Portafolio - Galería de Fotografía" description="Explora mi colección de fotografía en blanco y negro">
+<Layout
+  title="Portafolio - Galería de Fotografía"
+  description="Explora mi colección de fotografía en blanco y negro"
+>
   <section class="portfolio-section">
     <div class="container">
       <div class="portfolio-header fade-in-up">
@@ -59,49 +98,57 @@ const categoryRepresentatives = categories.map(category => {
 
       <div class="gallery" id="galleryGrid">
         {/* Category representatives - shown initially */}
-        {categoryRepresentatives.map((image, index) => (
-          <div 
-            class="gallery-item category-view" 
-            data-category={image.category}
-            data-image-id={image.id}
-            style={`animation-delay: ${index * 0.1}s`}
-          >
-            <div class="image-wrapper category-representative">
-              <img 
-                src={`/images/portfolio/${image.id}.${image.ext || 'png'}`} 
-                alt={image.title}
-                loading="lazy"
-              />
-              <div class="image-category-tag">{image.category}</div>
+        {
+          categoryRepresentatives.map((image, index) => (
+            <div
+              class="gallery-item category-view"
+              data-category={image.category}
+              data-image-id={image.id}
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              <div class="image-wrapper category-representative">
+                <img
+                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+                  alt={image.title}
+                  loading="lazy"
+                />
+                <div class="image-category-tag">{image.category}</div>
+              </div>
             </div>
-          </div>
-        ))}
-        
+          ))
+        }
+
         {/* All images - shown when filtered */}
-        {images.map((image, index) => (
-          <div 
-            class="gallery-item filtered-view" 
-            data-category={image.category}
-            data-image-id={image.id}
-            style={`animation-delay: ${index * 0.1}s; display: none;`}
-          >
-            <div class="image-wrapper">
-              <img 
-                src={`/images/portfolio/${image.id}.${image.ext || 'png'}`} 
-                alt={image.title}
-                loading="lazy"
-              />
-              <div class="image-category-tag">{image.category}</div>
+        {
+          images.map((image, index) => (
+            <div
+              class="gallery-item filtered-view"
+              data-category={image.category}
+              data-image-id={image.id}
+              style={`animation-delay: ${index * 0.1}s; display: none;`}
+            >
+              <div class="image-wrapper">
+                <img
+                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+                  alt={image.title}
+                  loading="lazy"
+                />
+                <div class="image-category-tag">{image.category}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox">
-    <button class="lightbox-close" id="closeLightbox" aria-label="Close lightbox">&times;</button>
+    <button
+      class="lightbox-close"
+      id="closeLightbox"
+      aria-label="Close lightbox">&times;</button
+    >
     <img id="lightboxImage" src="" alt="" />
   </div>
 </Layout>
@@ -178,7 +225,9 @@ const categoryRepresentatives = categories.map(category => {
   .gallery-item {
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
   }
 
   .image-wrapper {
@@ -197,7 +246,7 @@ const categoryRepresentatives = categories.map(category => {
 
   /* Category representative styling */
   .category-representative::after {
-    content: 'Ver categoría';
+    content: "Ver categoría";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -223,7 +272,9 @@ const categoryRepresentatives = categories.map(category => {
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: transform var(--transition-slow), filter var(--transition-medium);
+    transition:
+      transform var(--transition-slow),
+      filter var(--transition-medium);
   }
 
   .image-wrapper:hover img {
@@ -310,7 +361,6 @@ const categoryRepresentatives = categories.map(category => {
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
   }
 
-
   @media (max-width: 1024px) {
     .gallery {
       grid-template-columns: repeat(2, 1fr);
@@ -341,61 +391,67 @@ const categoryRepresentatives = categories.map(category => {
 
 <script>
   // State management
-  let currentView: 'categories' | 'filtered' = 'categories';
+  let currentView: "categories" | "filtered" = "categories";
   let currentCategory: string | null = null;
 
   // DOM elements
-  const resetBtn = document.getElementById('resetFilter');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightboxImage') as HTMLImageElement;
+  const resetBtn = document.getElementById("resetFilter");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById(
+    "lightboxImage",
+  ) as HTMLImageElement;
 
-  const closeLightbox = document.getElementById('closeLightbox');
+  const closeLightbox = document.getElementById("closeLightbox");
 
   // Get all gallery items
-  const categoryItems = document.querySelectorAll('.gallery-item.category-view');
-  const filteredItems = document.querySelectorAll('.gallery-item.filtered-view');
+  const categoryItems = document.querySelectorAll(
+    ".gallery-item.category-view",
+  );
+  const filteredItems = document.querySelectorAll(
+    ".gallery-item.filtered-view",
+  );
 
   // Function to show category view (initial state)
   function showCategoryView() {
-    currentView = 'categories';
+    currentView = "categories";
     currentCategory = null;
 
     // Show category representatives
     categoryItems.forEach((item, index) => {
       const htmlItem = item as HTMLElement;
-      htmlItem.style.display = 'block';
+      htmlItem.style.display = "block";
       setTimeout(() => {
-        htmlItem.style.opacity = '1';
-        htmlItem.style.transform = 'translateY(0)';
+        htmlItem.style.opacity = "1";
+        htmlItem.style.transform = "translateY(0)";
       }, index * 50);
     });
 
     // Hide all filtered items
-    filteredItems.forEach(item => {
+    filteredItems.forEach((item) => {
       const htmlItem = item as HTMLElement;
-      htmlItem.style.opacity = '0';
-      htmlItem.style.transform = 'translateY(20px)';
+      htmlItem.style.opacity = "0";
+      htmlItem.style.transform = "translateY(20px)";
       setTimeout(() => {
-        htmlItem.style.display = 'none';
+        htmlItem.style.display = "none";
       }, 400);
     });
 
     // Hide reset button
-    resetBtn?.classList.remove('visible');
+    resetBtn?.classList.remove("visible");
   }
 
   // Function to show filtered view (after selecting a category)
   function showFilteredView(category: string) {
-    currentView = 'filtered';
+    currentView = "filtered";
     currentCategory = category;
 
     // Hide category representatives
-    categoryItems.forEach(item => {
+    categoryItems.forEach((item) => {
       const htmlItem = item as HTMLElement;
-      htmlItem.style.opacity = '0';
-      htmlItem.style.transform = 'translateY(20px)';
+      htmlItem.style.opacity = "0";
+      htmlItem.style.transform = "translateY(20px)";
       setTimeout(() => {
-        htmlItem.style.display = 'none';
+        htmlItem.style.display = "none";
       }, 400);
     });
 
@@ -406,25 +462,25 @@ const categoryRepresentatives = categories.map(category => {
         const itemCategory = htmlItem.dataset.category;
 
         if (itemCategory === category) {
-          htmlItem.style.display = 'block';
+          htmlItem.style.display = "block";
           setTimeout(() => {
-            htmlItem.style.opacity = '1';
-            htmlItem.style.transform = 'translateY(0)';
+            htmlItem.style.opacity = "1";
+            htmlItem.style.transform = "translateY(0)";
           }, index * 50);
         } else {
-          htmlItem.style.display = 'none';
+          htmlItem.style.display = "none";
         }
       });
 
       // Show reset button
-      resetBtn?.classList.add('visible');
+      resetBtn?.classList.add("visible");
     }, 400);
   }
 
   // Click handler for category representatives
-  categoryItems.forEach(item => {
-    const wrapper = item.querySelector('.image-wrapper');
-    wrapper?.addEventListener('click', (e) => {
+  categoryItems.forEach((item) => {
+    const wrapper = item.querySelector(".image-wrapper");
+    wrapper?.addEventListener("click", (e) => {
       e.preventDefault();
       const category = (item as HTMLElement).dataset.category;
       if (category) {
@@ -434,45 +490,46 @@ const categoryRepresentatives = categories.map(category => {
   });
 
   // Click handler for filtered items (opens lightbox)
-  filteredItems.forEach(item => {
-    const wrapper = item.querySelector('.image-wrapper');
-    wrapper?.addEventListener('click', (e) => {
+  filteredItems.forEach((item) => {
+    const wrapper = item.querySelector(".image-wrapper");
+    wrapper?.addEventListener("click", (e) => {
       e.preventDefault();
-      const img = wrapper.querySelector('img');
-      const category = wrapper.querySelector('.image-category-tag')?.textContent || '';
-      
+      const img = wrapper.querySelector("img");
+      const category =
+        wrapper.querySelector(".image-category-tag")?.textContent || "";
+
       if (img && lightboxImage && lightbox) {
         lightboxImage.src = img.src;
         lightboxImage.alt = img.alt;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
       }
     });
   });
 
   // Reset button - back to category view
-  resetBtn?.addEventListener('click', () => {
+  resetBtn?.addEventListener("click", () => {
     showCategoryView();
   });
 
   // Lightbox close handlers
-  closeLightbox?.addEventListener('click', () => {
-    lightbox?.classList.remove('active');
-    document.body.style.overflow = 'auto';
+  closeLightbox?.addEventListener("click", () => {
+    lightbox?.classList.remove("active");
+    document.body.style.overflow = "auto";
   });
 
-  lightbox?.addEventListener('click', (e) => {
+  lightbox?.addEventListener("click", (e) => {
     if (e.target === lightbox) {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "auto";
     }
   });
 
   // Close lightbox with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox?.classList.contains("active")) {
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "auto";
     }
   });
 
