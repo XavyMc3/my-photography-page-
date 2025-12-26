@@ -1,40 +1,48 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+// Import images for carousel
+import hero1 from "../assets/images/portfolio/20.jpg";
+import hero2 from "../assets/images/portfolio/hero-2.jpg";
+import hero3 from "../assets/images/portfolio/hero-3.jpg";
+
+// Import images for featured work (example IDs 1, 10, 20, 40)
+import feat1 from "../assets/images/portfolio/1.jpg";
+import feat10 from "../assets/images/portfolio/10.jpg";
+import feat20 from "../assets/images/portfolio/20.jpg";
+import feat40 from "../assets/images/portfolio/40.jpg";
+
+import profileImage from "../assets/images/profile.png";
 
 // Carousel images - solo 3 para el Hero de la página de inicio
-// Asegúrate de que las fotos existan en la carpeta /public/images/portfolio/
 const carouselImages = [
   {
     id: 1,
     title: "Street Photography",
     subtitle: "Documentando historias efímeras en las calles de la ciudad",
-    src: "/images/portfolio/20.jpg",
+    asset: hero1,
   },
   {
     id: 2,
     title: "Restaurantes",
     subtitle: "Fotografía gastronómica y de espacios culinarios",
-    src: "/images/portfolio/hero-2.jpg",
+    asset: hero2,
   },
   {
     id: 3,
     title: "Paisajes Urbanos",
     subtitle: "Perspectivas únicas de nuestra arquitectura moderna",
-    src: "/images/portfolio/hero-3.jpg",
+    asset: hero3,
   },
-  /* 
-    Para cambiar una foto del carrusel, simplemente actualiza el 'src' 
-    con el nombre de tu nuevo archivo.
-  */
 ];
 
-// Featured work images - 4 imágenes para la sección "Un poco de mi Trabajo"
-// Puedes especificar la extensión con 'ext' (png, jpg, webp). Si no se especifica, se usa 'png' por defecto
+// Featured work images
 const featuredWork = [
-  { id: 1, title: "Retrato Artístico", ext: "jpg" },
-  { id: 10, title: "Arquitectura Moderna", ext: "jpg" },
-  { id: 20, title: "Vida Urbana", ext: "jpg" },
-  { id: 40, title: "Gastronomía", ext: "jpg" },
+  { id: 1, title: "Retrato Artístico", asset: feat1 },
+  { id: 10, title: "Arquitectura Moderna", asset: feat10 },
+  { id: 20, title: "Vida Urbana", asset: feat20 },
+  { id: 40, title: "Gastronomía", asset: feat40 },
 ];
 ---
 
@@ -45,9 +53,17 @@ const featuredWork = [
       <div class="carousel-wrapper-full">
         <div class="carousel-track" id="carouselTrack">
           {
-            carouselImages.map((image) => (
+            carouselImages.map((image, index) => (
               <div class="carousel-slide">
-                <img src={image.src} alt={image.title} />
+                <Image
+                  src={image.asset}
+                  alt={image.title}
+                  width={1920}
+                  height={1080}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  class="carousel-img"
+                />
                 <div class="carousel-overlay">
                   <div class="carousel-content">
                     <h1>{image.title}</h1>
@@ -85,13 +101,16 @@ const featuredWork = [
               <div
                 class="featured-image-wrapper"
                 data-image-id={image.id}
-                data-image-ext={image.ext || "png"}
                 data-image-title={image.title}
+                data-src={image.asset.src}
               >
-                <img
-                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+                <Image
+                  src={image.asset}
                   alt={image.title}
+                  width={600}
+                  height={750}
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -135,7 +154,12 @@ const featuredWork = [
           <a href="/contact" class="btn">Trabajemos Juntos</a>
         </div>
         <div class="about-image">
-          <img src="/PerfilJavi.png" alt="Perfil del fotógrafo" />
+          <Image
+            src={profileImage}
+            alt="Perfil del fotógrafo"
+            width={400}
+            height={400}
+          />
         </div>
       </div>
     </div>
@@ -598,11 +622,11 @@ const featuredWork = [
   featuredImageWrappers.forEach((wrapper) => {
     wrapper.addEventListener("click", () => {
       const imageId = (wrapper as HTMLElement).dataset.imageId;
-      const imageExt = (wrapper as HTMLElement).dataset.imageExt || "png";
       const imageTitle = (wrapper as HTMLElement).dataset.imageTitle || "";
+      const imageSrc = (wrapper as HTMLElement).dataset.src || "";
 
       if (featuredLightboxImage && featuredLightbox) {
-        featuredLightboxImage.src = `/images/portfolio/${imageId}.${imageExt}`;
+        featuredLightboxImage.src = imageSrc;
         featuredLightboxImage.alt = imageTitle;
         featuredLightbox.classList.add("active");
         document.body.style.overflow = "hidden";

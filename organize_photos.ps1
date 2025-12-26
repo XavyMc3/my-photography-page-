@@ -1,6 +1,6 @@
 
 $sourceDir = "d:\proyects\webdesign\xavyportfolio\fotos"
-$destDir = "d:\proyects\webdesign\xavyportfolio\public\images\portfolio"
+$destDir = "d:\proyects\webdesign\xavyportfolio\src\assets\images\portfolio"
 
 # Clean destination
 if (Test-Path $destDir) {

@@ -1,10 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
-// Portfolio images - Añade aquí tus nuevas fotos
-// El 'id' debe coincidir con el nombre del archivo en /public/images/portfolio/
-// Puedes especificar la extensión con 'ext' (png, jpg, webp). Si no se especifica, se usa 'png' por defecto
-const images = [
+// Import all images from assets
+const imagesAssets = import.meta.glob(
+  "../assets/images/portfolio/*.{jpg,jpeg,png,webp,JPG}",
+  { eager: true },
+);
+
+// Portfolio images metadata
+const imagesRaw = [
   { id: 1, title: "Retrato 1", category: "Retrato", ext: "jpg" },
   { id: 2, title: "Retrato 2", category: "Retrato", ext: "jpg" },
   { id: 3, title: "Retrato 3", category: "Retrato", ext: "jpg" },
@@ -71,6 +76,29 @@ const images = [
   { id: 65, title: "Restaurantes 65", category: "Restaurantes", ext: "jpg" },
 ];
 
+// Map images to their assets
+const images = imagesRaw
+  .map((img) => {
+    const possiblePaths = [
+      `../assets/images/portfolio/${img.id}.${img.ext || "jpg"}`,
+      `../assets/images/portfolio/hero-${img.id}.${img.ext || "jpg"}`,
+      `../assets/images/portfolio/${img.id}.JPG`,
+      `../assets/images/portfolio/${img.id}.jpeg`,
+      `../assets/images/portfolio/${img.id}.png`,
+    ];
+
+    let asset = null;
+    for (const path of possiblePaths) {
+      if (imagesAssets[path]) {
+        asset = (imagesAssets[path] as any).default;
+        break;
+      }
+    }
+
+    return { ...img, asset };
+  })
+  .filter((img) => img.asset); // Only show images that exist
+
 // Get unique categories
 const categories = [...new Set(images.map((img) => img.category))];
 
@@ -106,11 +134,17 @@ const categoryRepresentatives = categories.map((category) => {
               data-image-id={image.id}
               style={`animation-delay: ${index * 0.1}s`}
             >
-              <div class="image-wrapper category-representative">
-                <img
-                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+              <div
+                class="image-wrapper category-representative"
+                data-src={image.asset.src}
+              >
+                <Image
+                  src={image.asset}
                   alt={image.title}
+                  width={600}
+                  height={750}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div class="image-category-tag">{image.category}</div>
               </div>
@@ -127,11 +161,14 @@ const categoryRepresentatives = categories.map((category) => {
               data-image-id={image.id}
               style={`animation-delay: ${index * 0.1}s; display: none;`}
             >
-              <div class="image-wrapper">
-                <img
-                  src={`/images/portfolio/${image.id}.${image.ext || "png"}`}
+              <div class="image-wrapper" data-src={image.asset.src}>
+                <Image
+                  src={image.asset}
                   alt={image.title}
+                  width={600}
+                  height={750}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div class="image-category-tag">{image.category}</div>
               </div>
@@ -498,9 +535,14 @@ const categoryRepresentatives = categories.map((category) => {
       const category =
         wrapper.querySelector(".image-category-tag")?.textContent || "";
 
-      if (img && lightboxImage && lightbox) {
-        lightboxImage.src = img.src;
-        lightboxImage.alt = img.alt;
+      if (lightboxImage && lightbox) {
+        // Use the high-res source from data-src instead of the thumbnail
+        const highResSrc =
+          (wrapper as HTMLElement).dataset.src ||
+          (img as HTMLImageElement)?.src ||
+          "";
+        lightboxImage.src = highResSrc;
+        lightboxImage.alt = (img as HTMLImageElement)?.alt || "";
         lightbox.classList.add("active");
         document.body.style.overflow = "hidden";
       }
