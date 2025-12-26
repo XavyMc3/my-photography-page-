@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless'; // Solo si instalaste el adaptador
+import cloudflare from '@astrojs/cloudflare';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-    // Si vas a usar un dominio propio o el de vercel.app
-    // deja el 'base' vacío o bórralo.
-    base: '/',
+    site: 'https://my-photography-page-.pages.dev', // Cambia esto si usas un dominio propio
     output: 'static',
-    adapter: vercel(),
+    adapter: cloudflare(),
+    integrations: [sitemap()],
 });
